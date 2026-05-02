@@ -12,32 +12,42 @@ const ABOUT_ITEMS = [
 function ShibaMascot() {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 80 80"
       role="img"
-      aria-label="Shiba dog mascot"
-      className="w-10 h-10 animate-float drop-shadow-sm"
+      aria-label="Graduation Shiba dog mascot"
+      className="w-12 h-12 animate-float drop-shadow-sm"
     >
-      <path d="M14 22 L20 7 L30 18 Z" fill="#C76A24" />
-      <path d="M50 22 L44 7 L34 18 Z" fill="#C76A24" />
-      <path d="M19 19 L22 11 L28 20 Z" fill="#FFE2B8" />
-      <path d="M45 19 L42 11 L36 20 Z" fill="#FFE2B8" />
+      <circle cx="40" cy="42" r="34" fill="#FFF7ED" />
+      <path d="M17 31 L25 11 L36 28 Z" fill="#D9772B" />
+      <path d="M63 31 L55 11 L44 28 Z" fill="#D9772B" />
+      <path d="M24 28 L27 18 L34 29 Z" fill="#FFE7C2" />
+      <path d="M56 28 L53 18 L46 29 Z" fill="#FFE7C2" />
       <path
-        d="M10 31 C10 18 20 11 32 11 C44 11 54 18 54 31 C54 46 44 57 32 57 C20 57 10 46 10 31 Z"
-        fill="#D9772B"
+        d="M15 41 C15 25 26 17 40 17 C54 17 65 25 65 41 C65 56 54 67 40 67 C26 67 15 56 15 41 Z"
+        fill="#E07B2E"
       />
       <path
-        d="M18 36 C18 28 24 23 32 23 C40 23 46 28 46 36 C46 47 40 54 32 54 C24 54 18 47 18 36 Z"
-        fill="#FFF2D8"
+        d="M24 45 C24 34 31 28 40 28 C49 28 56 34 56 45 C56 58 49 65 40 65 C31 65 24 58 24 45 Z"
+        fill="#FFF1D6"
       />
-      <path d="M20 29 C22 24 26 21 31 21 L28 31 Z" fill="#B85B1E" opacity="0.42" />
-      <path d="M44 29 C42 24 38 21 33 21 L36 31 Z" fill="#B85B1E" opacity="0.42" />
-      <circle cx="24" cy="33" r="3" fill="#1F2937" />
-      <circle cx="40" cy="33" r="3" fill="#1F2937" />
-      <path d="M29 39 C30.5 37.5 33.5 37.5 35 39 C34 41 30 41 29 39 Z" fill="#1F2937" />
-      <path d="M32 41 C31 44 28 45 25 43.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
-      <path d="M32 41 C33 44 36 45 39 43.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
-      <path d="M13 33 C14 42 19 50 27 54 C18 53 10 45 8 36 Z" fill="#B85B1E" opacity="0.2" />
-      <path d="M51 33 C50 42 45 50 37 54 C46 53 54 45 56 36 Z" fill="#B85B1E" opacity="0.2" />
+      <path d="M25 37 C28 30 33 27 39 27 L35 40 Z" fill="#B85B1E" opacity="0.35" />
+      <path d="M55 37 C52 30 47 27 41 27 L45 40 Z" fill="#B85B1E" opacity="0.35" />
+      <circle cx="31" cy="43" r="3.4" fill="#1F2937" />
+      <circle cx="49" cy="43" r="3.4" fill="#1F2937" />
+      <circle cx="29.8" cy="41.8" r="1" fill="#FFFFFF" />
+      <circle cx="47.8" cy="41.8" r="1" fill="#FFFFFF" />
+      <circle cx="24" cy="49" r="3.5" fill="#FDBA74" opacity="0.65" />
+      <circle cx="56" cy="49" r="3.5" fill="#FDBA74" opacity="0.65" />
+      <path d="M36.5 50 C38 48.5 42 48.5 43.5 50 C42.5 52.3 37.5 52.3 36.5 50 Z" fill="#1F2937" />
+      <path d="M40 52 C39 55 35.5 56 33 54.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
+      <path d="M40 52 C41 55 44.5 56 47 54.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
+      <path d="M25 60 C29 68 51 68 55 60 C51 72 29 72 25 60 Z" fill="#C76A24" opacity="0.18" />
+
+      <path d="M23 20 L40 10 L57 20 L40 29 Z" fill="#1E293B" />
+      <path d="M29 22 V30 C35 34 45 34 51 30 V22 L40 28 Z" fill="#334155" />
+      <path d="M57 20 V32" stroke="#FBBF24" strokeWidth="2.2" strokeLinecap="round" />
+      <circle cx="57" cy="34" r="2.4" fill="#FBBF24" />
+      <path d="M31 22 L40 17 L49 22" fill="none" stroke="#475569" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
