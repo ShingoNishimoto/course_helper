@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
 
+const ABOUT_ITEMS = [
+  { icon: '🎯', title: 'Game-based learning', desc: 'Progress through 7 units covering the full COMP6240 syllabus — from the Relational Model and SQL to Normalisation and Relational Algebra.' },
+  { icon: '💬', title: 'Instant feedback', desc: 'Every answer triggers immediate feedback. Wrong answers show a detailed explanation so every mistake becomes a learning moment.' },
+  { icon: '🔥', title: 'Streak & combo system', desc: 'Answer 3 or more questions correctly in a row and an "ON FIRE!" celebration pops up on screen.' },
+  { icon: '💖', title: 'Lives system', desc: 'Each session starts with 3 hearts. Every wrong answer costs one heart — lose all three and the session ends.' },
+  { icon: '⚡', title: 'XP & progression', desc: 'Complete a unit and earn XP based on correct answers. Finishing a unit unlocks the next one.' },
+  { icon: '💾', title: 'Auto-saved progress', desc: 'Close the browser and your XP and completed units will still be there when you come back.' },
+]
+
 export default function HomeScreen({ units, progress, xp, streak, onStartLesson }) {
   const [animatedXP, setAnimatedXP] = useState(0)
+  const [showAbout, setShowAbout] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setAnimatedXP(xp), 100)
@@ -38,6 +48,40 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
 
       {/* Main content */}
       <div className="max-w-lg mx-auto px-4 py-6">
+
+        {/* About dropdown */}
+        <div className="mb-5 rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+          <button
+            onClick={() => setShowAbout((v) => !v)}
+            className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xl">📖</span>
+              <span className="font-black text-gray-700 text-sm">About this app</span>
+            </div>
+            <span className={`text-duo-green font-black text-lg transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`}>
+              ▾
+            </span>
+          </button>
+
+          {showAbout && (
+            <div className="border-t border-gray-100 px-4 py-4 flex flex-col gap-3 animate-slide-up">
+              <p className="text-gray-500 text-sm leading-relaxed">
+                A Duolingo-style quiz app to help you master <span className="font-bold text-duo-green">COMP6240</span> through engaging, game-like learning.
+              </p>
+              {ABOUT_ITEMS.map((item) => (
+                <div key={item.title} className="flex items-start gap-3">
+                  <span className="text-xl flex-shrink-0">{item.icon}</span>
+                  <div>
+                    <p className="font-bold text-gray-700 text-sm">{item.title}</p>
+                    <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         <h2 className="text-center text-gray-400 text-xs font-black uppercase tracking-widest mb-6">
           Your Learning Path
         </h2>
