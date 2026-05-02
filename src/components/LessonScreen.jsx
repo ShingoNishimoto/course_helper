@@ -1,4 +1,6 @@
 export default function LessonScreen({ unit, theme, onStart, onBack }) {
+  const knowledgeItems = unit.knowledge ?? []
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: theme.page }}>
       {/* Gradient hero cover */}
@@ -59,6 +61,40 @@ export default function LessonScreen({ unit, theme, onStart, onBack }) {
             <p className="text-xs font-bold text-duo-gray uppercase tracking-wide mt-0.5">XP Reward</p>
           </div>
         </div>
+
+        {knowledgeItems.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <div>
+                <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Before the quiz</p>
+                <h2 className="text-lg font-black text-gray-800">Key knowledge</h2>
+              </div>
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-xl flex-shrink-0"
+                style={{ background: theme.accentSoft }}
+              >
+                🧠
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {knowledgeItems.map((item, index) => (
+                <div key={item.title} className="flex gap-3 rounded-xl p-3" style={{ background: theme.subtle }}>
+                  <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-black flex-shrink-0"
+                    style={{ background: theme.accent }}
+                  >
+                    {index + 1}
+                  </div>
+                  <div>
+                    <p className="font-black text-gray-800 text-sm">{item.title}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed mt-0.5">{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="flex-1" />
       </div>

@@ -61,6 +61,28 @@
           "hint": "It links rows across relations",
           "explanation": "A foreign key stores values that reference a key in another relation."
         }
+      ],
+      "knowledge": [
+        {
+          "title": "Candidate keys are minimal identifiers",
+          "detail": "A candidate key is a minimal set of attributes that uniquely identifies every tuple. If any attribute can be removed and uniqueness still holds, it is only a superkey."
+        },
+        {
+          "title": "Primary keys cannot be NULL",
+          "detail": "Entity integrity requires every primary-key attribute to be non-null so every tuple can always be identified."
+        },
+        {
+          "title": "Foreign keys must match referenced keys",
+          "detail": "Referential integrity is violated when a non-null foreign-key value has no matching primary-key value in the referenced relation."
+        },
+        {
+          "title": "Primary key is a chosen candidate key",
+          "detail": "A relation may have several candidate keys, but only one is selected as the primary key for the schema."
+        },
+        {
+          "title": "Foreign keys link relations",
+          "detail": "A foreign key in one relation references a primary key or candidate key in another relation, creating a valid relationship between rows."
+        }
       ]
     },
     {
@@ -123,6 +145,28 @@
           "correct": "cascade",
           "hint": "It propagates the delete operation",
           "explanation": "`ON DELETE CASCADE` propagates deletion from the referenced row to dependent rows."
+        }
+      ],
+      "knowledge": [
+        {
+          "title": "DROP removes table structure",
+          "detail": "`DROP TABLE` removes both the stored rows and the table schema. `DELETE FROM` removes rows but leaves the table definition in place."
+        },
+        {
+          "title": "CASCADE propagates changes",
+          "detail": "`ON DELETE CASCADE` automatically deletes referencing rows when the referenced row is deleted."
+        },
+        {
+          "title": "UNIQUE prevents duplicate values",
+          "detail": "A `UNIQUE` constraint ensures a non-primary-key column accepts only distinct non-duplicate values."
+        },
+        {
+          "title": "DELETE keeps the schema",
+          "detail": "`DELETE FROM Student` without a `WHERE` clause can remove all rows, but the table still exists afterward."
+        },
+        {
+          "title": "Referential actions control dependencies",
+          "detail": "Foreign-key actions such as CASCADE, SET NULL, SET DEFAULT, and NO ACTION define what happens to dependent rows."
         }
       ]
     },
@@ -187,6 +231,28 @@
           "hint": "It can reference aggregate functions",
           "explanation": "`HAVING` filters groups after `GROUP BY` and can use aggregate expressions such as `AVG(...)`."
         }
+      ],
+      "knowledge": [
+        {
+          "title": "HAVING filters grouped results",
+          "detail": "`HAVING` filters groups after `GROUP BY` and can refer to aggregate functions such as `AVG`, `COUNT`, or `SUM`."
+        },
+        {
+          "title": "DISTINCT removes duplicates",
+          "detail": "`SELECT DISTINCT CourseNo FROM Enrol` returns each unique course number once, even if it appears in many enrolment rows."
+        },
+        {
+          "title": "COUNT handles NULL differently",
+          "detail": "`COUNT(*)` counts every row. `COUNT(column)` counts only rows where that column is non-null."
+        },
+        {
+          "title": "WHERE runs before grouping",
+          "detail": "`WHERE` filters individual rows before grouping. `HAVING` filters the groups after aggregation."
+        },
+        {
+          "title": "Grouped filters belong in HAVING",
+          "detail": "When a condition depends on grouped or aggregate results, use `HAVING` rather than `WHERE`."
+        }
       ]
     },
     {
@@ -249,6 +315,28 @@
           "correct": "total",
           "hint": "Every entity instance must participate",
           "explanation": "Double lines indicate total participation in an ER relationship."
+        }
+      ],
+      "knowledge": [
+        {
+          "title": "Weak entities need an owner",
+          "detail": "A weak entity cannot be uniquely identified by its own attributes alone. It depends on an owner entity and an identifying relationship."
+        },
+        {
+          "title": "Double lines mean total participation",
+          "detail": "In ER diagrams, double lines indicate that every instance of an entity type must participate in the relationship."
+        },
+        {
+          "title": "Cardinality shows relationship limits",
+          "detail": "If many employees can work for one department and each employee works for at most one department, the relationship is many-to-one from employee to department."
+        },
+        {
+          "title": "Weak entities use partial keys",
+          "detail": "A weak entity usually has a partial key that becomes unique only when combined with the owner entity key."
+        },
+        {
+          "title": "Participation constraints are requirements",
+          "detail": "Total participation means participation is mandatory; partial participation means some entity instances may exist without that relationship."
         }
       ]
     },
@@ -313,6 +401,28 @@
           "hint": "It uniquely determines all attributes",
           "explanation": "When the closure of X includes all attributes, X functionally determines the whole tuple, so X is a superkey."
         }
+      ],
+      "knowledge": [
+        {
+          "title": "Trivial FDs have RHS inside LHS",
+          "detail": "A functional dependency X -> Y is trivial when Y is a subset of X, because it must always hold."
+        },
+        {
+          "title": "Transitivity derives indirect dependencies",
+          "detail": "If A -> B and B -> C, then A -> C follows by Armstrong's transitivity axiom."
+        },
+        {
+          "title": "Closure shows what X determines",
+          "detail": "The closure X+ is the set of all attributes that can be functionally determined from X using the given dependencies."
+        },
+        {
+          "title": "Full closure means superkey",
+          "detail": "If X+ contains every attribute of relation R, then X functionally determines complete tuples and is a superkey."
+        },
+        {
+          "title": "Candidate keys are minimal superkeys",
+          "detail": "A candidate key is a superkey with no unnecessary attributes. Removing any attribute would stop it from determining all attributes."
+        }
       ]
     },
     {
@@ -376,6 +486,28 @@
           "hint": "Unwanted extra rows from a join",
           "explanation": "Lossless join means the decomposed relations join back to exactly the original relation, with no spurious tuples."
         }
+      ],
+      "knowledge": [
+        {
+          "title": "2NF removes partial dependencies",
+          "detail": "A relation violates 2NF when a non-prime attribute depends on only part of a composite candidate key."
+        },
+        {
+          "title": "BCNF requires superkey determinants",
+          "detail": "In BCNF, for every non-trivial FD X -> A, X must be a superkey."
+        },
+        {
+          "title": "3NF preserves dependencies better",
+          "detail": "3NF synthesis can preserve all functional dependencies, while BCNF decomposition may lose dependency preservation."
+        },
+        {
+          "title": "BCNF is not always dependency-preserving",
+          "detail": "BCNF guarantees a lossless join, but some original dependencies may no longer be enforceable in a single decomposed relation."
+        },
+        {
+          "title": "Lossless joins avoid spurious tuples",
+          "detail": "A lossless-join decomposition reconstructs exactly the original relation and does not introduce extra invalid rows."
+        }
       ]
     },
     {
@@ -438,6 +570,28 @@
           "correct": "sets",
           "hint": "Not bags or lists",
           "explanation": "Formal relational algebra uses set semantics, so duplicate tuples are removed by definition."
+        }
+      ],
+      "knowledge": [
+        {
+          "title": "Selection filters tuples",
+          "detail": "The selection operator σ keeps rows that satisfy a condition and leaves the relation schema unchanged."
+        },
+        {
+          "title": "Projection removes duplicate tuples",
+          "detail": "Formal relational algebra uses set semantics, so projection results contain no duplicate tuples."
+        },
+        {
+          "title": "Cartesian product multiplies tuple counts",
+          "detail": "If R has 4 tuples and S has 3 tuples with no shared attributes, R × S has 12 tuples."
+        },
+        {
+          "title": "Selection and projection do different jobs",
+          "detail": "Selection chooses rows; projection chooses columns. In SQL, they correspond roughly to `WHERE` and the `SELECT` list."
+        },
+        {
+          "title": "Relations are sets",
+          "detail": "Because formal relational algebra treats relations as sets, duplicate tuples are eliminated by definition."
         }
       ]
     }
