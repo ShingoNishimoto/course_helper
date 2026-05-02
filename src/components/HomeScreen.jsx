@@ -9,9 +9,43 @@ const ABOUT_ITEMS = [
   { icon: '💾', title: 'Auto-saved progress', desc: 'Close the browser and your XP and completed units will still be there when you come back.' },
 ]
 
-export default function HomeScreen({ units, progress, xp, streak, onStartLesson }) {
+function ShibaMascot() {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      role="img"
+      aria-label="Shiba dog mascot"
+      className="w-10 h-10 animate-float drop-shadow-sm"
+    >
+      <path d="M14 22 L20 7 L30 18 Z" fill="#C76A24" />
+      <path d="M50 22 L44 7 L34 18 Z" fill="#C76A24" />
+      <path d="M19 19 L22 11 L28 20 Z" fill="#FFE2B8" />
+      <path d="M45 19 L42 11 L36 20 Z" fill="#FFE2B8" />
+      <path
+        d="M10 31 C10 18 20 11 32 11 C44 11 54 18 54 31 C54 46 44 57 32 57 C20 57 10 46 10 31 Z"
+        fill="#D9772B"
+      />
+      <path
+        d="M18 36 C18 28 24 23 32 23 C40 23 46 28 46 36 C46 47 40 54 32 54 C24 54 18 47 18 36 Z"
+        fill="#FFF2D8"
+      />
+      <path d="M20 29 C22 24 26 21 31 21 L28 31 Z" fill="#B85B1E" opacity="0.42" />
+      <path d="M44 29 C42 24 38 21 33 21 L36 31 Z" fill="#B85B1E" opacity="0.42" />
+      <circle cx="24" cy="33" r="3" fill="#1F2937" />
+      <circle cx="40" cy="33" r="3" fill="#1F2937" />
+      <path d="M29 39 C30.5 37.5 33.5 37.5 35 39 C34 41 30 41 29 39 Z" fill="#1F2937" />
+      <path d="M32 41 C31 44 28 45 25 43.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
+      <path d="M32 41 C33 44 36 45 39 43.5" fill="none" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
+      <path d="M13 33 C14 42 19 50 27 54 C18 53 10 45 8 36 Z" fill="#B85B1E" opacity="0.2" />
+      <path d="M51 33 C50 42 45 50 37 54 C46 53 54 45 56 36 Z" fill="#B85B1E" opacity="0.2" />
+    </svg>
+  )
+}
+
+export default function HomeScreen({ units, progress, xp, streak, theme, themes, onThemeChange, onStartLesson }) {
   const [animatedXP, setAnimatedXP] = useState(0)
   const [showAbout, setShowAbout] = useState(false)
+  const [showThemePicker, setShowThemePicker] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setAnimatedXP(xp), 100)
@@ -24,12 +58,15 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header — green gradient */}
-      <div className="bg-gradient-to-r from-duo-green to-duo-green-dark shadow-lg sticky top-0 z-10">
+    <div className="min-h-screen" style={{ background: theme.page }}>
+      {/* Header */}
+      <div
+        className="shadow-lg sticky top-0 z-10"
+        style={{ background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})` }}
+      >
         <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-3xl animate-float">🦉</span>
+            <ShibaMascot />
             <span className="font-black text-white text-xl tracking-wide">COMP6240</span>
           </div>
           <div className="flex items-center gap-3">
@@ -59,7 +96,10 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
               <span className="text-xl">📖</span>
               <span className="font-black text-gray-700 text-sm">About this app</span>
             </div>
-            <span className={`text-duo-green font-black text-lg transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`}>
+            <span
+              className={`font-black text-lg transition-transform duration-300 ${showAbout ? 'rotate-180' : ''}`}
+              style={{ color: theme.accent }}
+            >
               ▾
             </span>
           </button>
@@ -67,7 +107,7 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
           {showAbout && (
             <div className="border-t border-gray-100 px-4 py-4 flex flex-col gap-3 animate-slide-up">
               <p className="text-gray-500 text-sm leading-relaxed">
-                A Duolingo-style quiz app to help you master <span className="font-bold text-duo-green">COMP6240</span> through engaging, game-like learning.
+                A quiz app to help you master <span className="font-bold" style={{ color: theme.accent }}>COMP6240</span> through engaging, game-like learning.
               </p>
               {ABOUT_ITEMS.map((item) => (
                 <div key={item.title} className="flex items-start gap-3">
@@ -78,6 +118,61 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mb-5 rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+          <button
+            onClick={() => setShowThemePicker((v) => !v)}
+            className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="w-5 h-5 rounded-full border border-white shadow-sm"
+                style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentDark})` }}
+              />
+              <span className="font-black text-gray-700 text-sm">App color</span>
+              <span
+                className="text-xs font-black rounded-full px-2.5 py-0.5"
+                style={{ color: theme.accentDark, background: theme.accentSoft }}
+              >
+                {theme.name}
+              </span>
+            </div>
+            <span
+              className={`font-black text-lg transition-transform duration-300 ${showThemePicker ? 'rotate-180' : ''}`}
+              style={{ color: theme.accent }}
+            >
+              ▾
+            </span>
+          </button>
+
+          {showThemePicker && (
+            <div className="border-t border-gray-100 px-4 py-3 animate-slide-up">
+              <div className="grid grid-cols-4 gap-2">
+                {themes.map((option) => {
+                  const selected = option.id === theme.id
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => onThemeChange(option.id)}
+                      className={`h-10 rounded-xl border-2 transition-all active:scale-95 ${selected ? 'shadow-md' : 'hover:-translate-y-0.5'}`}
+                      style={{
+                        borderColor: selected ? option.accentDark : '#E5E7EB',
+                        background: `linear-gradient(135deg, ${option.accent}, ${option.accentDark})`,
+                        boxShadow: selected ? `0 6px 18px ${option.shadow}` : 'none',
+                      }}
+                      aria-label={`Use ${option.name} theme`}
+                      title={option.name}
+                    >
+                      <span className="sr-only">{option.name}</span>
+                      {selected && <span className="text-white font-black text-base">✓</span>}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -100,9 +195,10 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                   <div
                     className={`w-1.5 h-8 rounded-full mb-1 ${
                       completed
-                        ? 'bg-gradient-to-b from-duo-green to-duo-green-dark'
+                        ? ''
                         : 'bg-gray-200'
                     }`}
+                    style={completed ? { background: `linear-gradient(to bottom, ${theme.accent}, ${theme.accentDark})` } : undefined}
                   />
                 )}
 
@@ -110,9 +206,13 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                 <div
                   className={`w-full max-w-sm rounded-2xl border-b-4 p-4 transition-all duration-200
                     ${unlocked
-                      ? 'bg-white border-duo-green-dark shadow-[0_4px_16px_rgba(88,204,2,0.18)] cursor-pointer hover:shadow-[0_8px_28px_rgba(88,204,2,0.32)] hover:-translate-y-1 active:scale-95 active:translate-y-0'
+                      ? 'bg-white cursor-pointer hover:-translate-y-1 active:scale-95 active:translate-y-0'
                       : 'bg-gray-100 border-gray-300 opacity-60 cursor-not-allowed'
                     }`}
+                  style={unlocked ? {
+                    borderColor: theme.accentDark,
+                    boxShadow: `0 4px 16px ${theme.shadow}`,
+                  } : undefined}
                   onClick={() => unlocked && onStartLesson(index)}
                 >
                   <div className="flex items-center gap-3">
@@ -120,11 +220,16 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                     <div
                       className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl flex-shrink-0 shadow-sm
                         ${completed
-                          ? 'bg-gradient-to-br from-duo-green to-duo-green-dark'
+                          ? ''
                           : unlocked
-                            ? 'bg-gradient-to-br from-duo-green/30 to-duo-green/10'
+                            ? ''
                             : 'bg-gray-200'
                         }`}
+                      style={completed || unlocked ? {
+                        background: completed
+                          ? `linear-gradient(135deg, ${theme.accent}, ${theme.accentDark})`
+                          : `linear-gradient(135deg, ${theme.accentSoft}, ${theme.subtle})`,
+                      } : undefined}
                     >
                       {completed ? '🌟' : unlocked ? unit.icon : '🔐'}
                     </div>
@@ -138,7 +243,7 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                         {unit.title.replace(`Unit ${unit.id}: `, '')}
                       </h3>
                       {completed && (
-                        <p className="text-xs text-duo-green font-bold mt-0.5">
+                        <p className="text-xs font-bold mt-0.5" style={{ color: theme.accent }}>
                           Best score: {unitProgress}/{unit.questions.length}
                         </p>
                       )}
@@ -146,7 +251,10 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
 
                     {/* Arrow */}
                     {unlocked && !completed && (
-                      <div className="w-8 h-8 rounded-full bg-duo-green flex items-center justify-center flex-shrink-0">
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{ background: theme.accent }}
+                      >
                         <span className="text-white font-black text-base leading-none">▶</span>
                       </div>
                     )}
@@ -159,7 +267,7 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
                         className="h-2.5 rounded-full transition-all duration-700"
                         style={{
                           width: `${(unitProgress / unit.questions.length) * 100}%`,
-                          background: 'linear-gradient(to right, #58CC02, #89E219)',
+                          background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})`,
                         }}
                       />
                     </div>
@@ -171,7 +279,10 @@ export default function HomeScreen({ units, progress, xp, streak, onStartLesson 
 
           {/* All done message */}
           {units.every((_, i) => progress[i]?.completed) && (
-            <div className="mt-6 bg-gradient-to-br from-duo-green to-duo-green-dark text-white rounded-2xl p-6 text-center animate-bounce-in shadow-lg">
+            <div
+              className="mt-6 text-white rounded-2xl p-6 text-center animate-bounce-in shadow-lg"
+              style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentDark})` }}
+            >
               <div className="text-5xl mb-2">🎊🎉🎊</div>
               <h3 className="font-black text-2xl">Course Complete!</h3>
               <p className="text-sm opacity-90 mt-1">You've mastered all COMP6240 units!</p>

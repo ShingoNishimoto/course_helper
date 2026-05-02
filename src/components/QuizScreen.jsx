@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function QuizScreen({ unit, onComplete, onQuit }) {
+export default function QuizScreen({ unit, theme, onComplete, onQuit }) {
   const questions = unit.questions
   const [currentIndex, setCurrentIndex] = useState(0)
   const [hearts, setHearts] = useState(3)
@@ -15,6 +15,11 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
 
   const question = questions[currentIndex]
   const progress = ((currentIndex + 1) / questions.length) * 100
+  const correctAnswerStyle = {
+    borderColor: theme.accent,
+    background: theme.accentSoft,
+    color: theme.accentDark,
+  }
 
   const checkAnswer = (answer) => {
     if (feedback) return
@@ -65,7 +70,7 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: theme.page }}>
       {/* Header */}
       <div className="max-w-lg mx-auto w-full px-4 pt-4 pb-2">
         <div className="flex items-center gap-3">
@@ -79,8 +84,8 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
           {/* Progress bar */}
           <div className="flex-1 bg-duo-gray-light rounded-full h-4 overflow-hidden">
             <div
-              className="bg-duo-green h-4 rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
+              className="h-4 rounded-full transition-all duration-500"
+              style={{ width: `${progress}%`, background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})` }}
             />
           </div>
 
@@ -130,8 +135,10 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
           <div className="flex flex-col gap-3">
             {question.options.map((option, i) => {
               let style = 'border-2 border-duo-gray-light bg-white text-gray-700 hover:border-duo-blue hover:bg-blue-50'
+              let buttonStyle = undefined
               if (feedback && i === question.correct) {
-                style = 'border-2 border-duo-green bg-green-50 text-duo-green-dark'
+                style = 'border-2'
+                buttonStyle = correctAnswerStyle
               } else if (feedback === 'wrong' && i === selected) {
                 style = 'border-2 border-duo-red bg-red-50 text-duo-red'
               }
@@ -142,6 +149,7 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
                   onClick={() => checkAnswer(i)}
                   disabled={!!feedback}
                   className={`w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-150 active:scale-98 ${style}`}
+                  style={buttonStyle}
                 >
                   {option}
                 </button>
@@ -155,8 +163,10 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
           <div className="flex gap-3">
             {[true, false].map((val) => {
               let style = 'border-2 border-duo-gray-light bg-white text-gray-700 hover:border-duo-blue hover:bg-blue-50'
+              let buttonStyle = undefined
               if (feedback && val === question.correct) {
-                style = 'border-2 border-duo-green bg-green-50 text-duo-green-dark'
+                style = 'border-2'
+                buttonStyle = correctAnswerStyle
               } else if (feedback === 'wrong' && val === selected) {
                 style = 'border-2 border-duo-red bg-red-50 text-duo-red'
               }
@@ -167,6 +177,7 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
                   onClick={() => checkAnswer(val)}
                   disabled={!!feedback}
                   className={`flex-1 py-4 rounded-xl font-bold text-lg transition-all duration-150 active:scale-95 ${style}`}
+                  style={buttonStyle}
                 >
                   {val ? '✓ TRUE' : '✗ FALSE'}
                 </button>
@@ -189,9 +200,10 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
               disabled={!!feedback}
               placeholder="Type your answer..."
               className={`w-full border-2 rounded-xl px-4 py-3 text-gray-800 font-semibold text-base outline-none transition-colors
-                ${feedback === 'correct' ? 'border-duo-green bg-green-50' :
+                ${feedback === 'correct' ? '' :
                   feedback === 'wrong' ? 'border-duo-red bg-red-50' :
                   'border-duo-gray-light focus:border-duo-blue'}`}
+              style={feedback === 'correct' ? correctAnswerStyle : undefined}
             />
             {!feedback && (
               <button
@@ -217,11 +229,17 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
       {/* Feedback banner */}
       {feedback && (
         <div className={`max-w-lg mx-auto w-full animate-slide-up`}>
-          <div className={`px-4 py-4 ${feedback === 'correct' ? 'bg-duo-green/10 border-t-2 border-duo-green' : 'bg-duo-red/10 border-t-2 border-duo-red'}`}>
+          <div
+            className={`px-4 py-4 border-t-2 ${feedback === 'correct' ? '' : 'bg-duo-red/10 border-duo-red'}`}
+            style={feedback === 'correct' ? { background: theme.subtle, borderColor: theme.accent } : undefined}
+          >
             <div className="flex items-start gap-3 mb-3">
               <span className="text-3xl">{feedback === 'correct' ? '🥳' : '😵'}</span>
               <div>
-                <p className={`font-bold ${feedback === 'correct' ? 'text-duo-green-dark' : 'text-duo-red'}`}>
+                <p
+                  className={`font-bold ${feedback === 'correct' ? '' : 'text-duo-red'}`}
+                  style={feedback === 'correct' ? { color: theme.accentDark } : undefined}
+                >
                   {feedback === 'correct' ? 'Correct!' : 'Incorrect!'}
                 </p>
                 <p className="text-gray-600 text-sm mt-0.5">{question.explanation}</p>
@@ -231,8 +249,12 @@ export default function QuizScreen({ unit, onComplete, onQuit }) {
               onClick={handleNext}
               className={`w-full font-bold text-white py-3 rounded-xl border-b-4 transition-all duration-150 active:scale-95
                 ${feedback === 'correct'
-                  ? 'bg-duo-green border-duo-green-dark hover:bg-duo-green-dark'
+                  ? ''
                   : 'bg-duo-red border-red-700 hover:bg-red-600'}`}
+              style={feedback === 'correct' ? {
+                background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})`,
+                borderColor: theme.accentDark,
+              } : undefined}
             >
               {currentIndex + 1 >= questions.length ? 'SEE RESULTS' : 'CONTINUE'}
             </button>

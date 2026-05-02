@@ -1,8 +1,11 @@
-export default function LessonScreen({ unit, onStart, onBack }) {
+export default function LessonScreen({ unit, theme, onStart, onBack }) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: theme.page }}>
       {/* Gradient hero cover */}
-      <div className="relative bg-gradient-to-br from-duo-green via-duo-green to-duo-green-dark overflow-hidden">
+      <div
+        className="relative overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}, ${theme.accentDark})` }}
+      >
         {/* Decorative circles */}
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full pointer-events-none" />
         <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-white/10 rounded-full pointer-events-none" />
@@ -64,7 +67,12 @@ export default function LessonScreen({ unit, onStart, onBack }) {
       <div className="max-w-lg mx-auto w-full px-6 pb-8">
         <button
           onClick={onStart}
-          className="w-full bg-gradient-to-r from-duo-green to-duo-green-dark hover:from-duo-green-dark hover:to-duo-green active:scale-95 text-white font-black text-xl py-5 rounded-2xl border-b-4 border-[#358000] transition-all duration-150 shadow-[0_6px_20px_rgba(88,204,2,0.4)]"
+          className="w-full active:scale-95 text-white font-black text-xl py-5 rounded-2xl border-b-4 transition-all duration-150"
+          style={{
+            background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})`,
+            borderColor: theme.accentDark,
+            boxShadow: `0 6px 20px ${theme.shadow}`,
+          }}
         >
           START LESSON
         </button>

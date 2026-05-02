@@ -38,7 +38,7 @@ function Confetti() {
   )
 }
 
-export default function CompleteScreen({ unit, result, xpEarned, onContinue, onRedo }) {
+export default function CompleteScreen({ unit, result, xpEarned, theme, onContinue, onRedo }) {
   const { score, total, failed } = result
   const percentage = Math.round((score / total) * 100)
   const [displayScore, setDisplayScore] = useState(0)
@@ -65,7 +65,10 @@ export default function CompleteScreen({ unit, result, xpEarned, onContinue, onR
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col items-center justify-between relative">
+    <div
+      className="min-h-screen flex flex-col items-center justify-between relative"
+      style={{ background: `linear-gradient(to bottom, ${theme.page}, #ffffff)` }}
+    >
       {!failed && percentage >= 60 && <Confetti />}
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-lg w-full px-6 py-8 relative z-10">
@@ -89,10 +92,16 @@ export default function CompleteScreen({ unit, result, xpEarned, onContinue, onR
         {/* Stats cards */}
         <div className="flex gap-3 w-full mb-6">
           {/* Score */}
-          <div className="flex-1 bg-gradient-to-b from-green-50 to-white border-2 border-duo-green rounded-2xl p-4 text-center shadow-sm">
-            <p className="text-5xl font-black text-duo-green-dark leading-none">{displayScore}</p>
-            <p className="text-sm font-bold text-duo-green-dark mt-1">/ {total}</p>
-            <p className="text-xs font-black text-duo-green uppercase tracking-widest mt-1">Score</p>
+          <div
+            className="flex-1 border-2 rounded-2xl p-4 text-center shadow-sm"
+            style={{
+              background: `linear-gradient(to bottom, ${theme.subtle}, #ffffff)`,
+              borderColor: theme.accent,
+            }}
+          >
+            <p className="text-5xl font-black leading-none" style={{ color: theme.accentDark }}>{displayScore}</p>
+            <p className="text-sm font-bold mt-1" style={{ color: theme.accentDark }}>/ {total}</p>
+            <p className="text-xs font-black uppercase tracking-widest mt-1" style={{ color: theme.accent }}>Score</p>
           </div>
 
           {/* XP — pop animation on reveal */}
@@ -121,7 +130,12 @@ export default function CompleteScreen({ unit, result, xpEarned, onContinue, onR
         {!failed && (
           <button
             onClick={onContinue}
-            className="w-full bg-gradient-to-r from-duo-green to-duo-green-dark hover:from-duo-green-dark hover:to-duo-green text-white font-black text-lg py-4 rounded-2xl border-b-4 border-[#358000] transition-all duration-150 active:scale-95 shadow-[0_6px_20px_rgba(88,204,2,0.4)]"
+            className="w-full text-white font-black text-lg py-4 rounded-2xl border-b-4 transition-all duration-150 active:scale-95"
+            style={{
+              background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark})`,
+              borderColor: theme.accentDark,
+              boxShadow: `0 6px 20px ${theme.shadow}`,
+            }}
           >
             CONTINUE
           </button>

@@ -7,12 +7,55 @@ import CompleteScreen from './components/CompleteScreen'
 
 const STORAGE_KEY = 'comp6240_progress'
 
+const THEMES = [
+  {
+    id: 'ocean',
+    name: 'Ocean',
+    accent: '#2563EB',
+    accentDark: '#1E40AF',
+    accentSoft: '#DBEAFE',
+    page: '#F8FAFC',
+    subtle: '#EFF6FF',
+    shadow: 'rgba(37, 99, 235, 0.22)',
+  },
+  {
+    id: 'violet',
+    name: 'Violet',
+    accent: '#7C3AED',
+    accentDark: '#5B21B6',
+    accentSoft: '#EDE9FE',
+    page: '#FAF7FF',
+    subtle: '#F5F3FF',
+    shadow: 'rgba(124, 58, 237, 0.22)',
+  },
+  {
+    id: 'coral',
+    name: 'Coral',
+    accent: '#E11D48',
+    accentDark: '#9F1239',
+    accentSoft: '#FFE4E6',
+    page: '#FFF8F7',
+    subtle: '#FFF1F2',
+    shadow: 'rgba(225, 29, 72, 0.2)',
+  },
+  {
+    id: 'slate',
+    name: 'Slate',
+    accent: '#475569',
+    accentDark: '#1E293B',
+    accentSoft: '#E2E8F0',
+    page: '#F8FAFC',
+    subtle: '#F1F5F9',
+    shadow: 'rgba(71, 85, 105, 0.22)',
+  },
+]
+
 function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) return JSON.parse(saved)
   } catch {}
-  return { xp: 0, streak: 1, progress: {} }
+  return { xp: 0, streak: 1, progress: {}, themeId: 'ocean' }
 }
 
 function saveState(state) {
@@ -31,6 +74,11 @@ export default function App() {
 
   const units = data.units
   const activeUnit = units[activeUnitIndex]
+  const activeTheme = THEMES.find((theme) => theme.id === gameState.themeId) ?? THEMES[0]
+
+  const handleThemeChange = (themeId) => {
+    setGameState((prev) => ({ ...prev, themeId }))
+  }
 
   const handleStartLesson = (index) => {
     setActiveUnitIndex(index)
@@ -85,12 +133,16 @@ export default function App() {
           progress={gameState.progress}
           xp={gameState.xp}
           streak={gameState.streak}
+          theme={activeTheme}
+          themes={THEMES}
+          onThemeChange={handleThemeChange}
           onStartLesson={handleStartLesson}
         />
       )}
       {screen === 'lesson' && (
         <LessonScreen
           unit={activeUnit}
+          theme={activeTheme}
           onStart={handleBeginQuiz}
           onBack={() => setScreen('home')}
         />
@@ -99,6 +151,7 @@ export default function App() {
         <QuizScreen
           key={`${activeUnitIndex}-${Date.now()}`}
           unit={activeUnit}
+          theme={activeTheme}
           onComplete={handleQuizComplete}
           onQuit={() => setScreen('home')}
         />
@@ -108,6 +161,7 @@ export default function App() {
           unit={activeUnit}
           result={quizResult}
           xpEarned={xpEarned}
+          theme={activeTheme}
           onContinue={handleContinue}
           onRedo={handleRedo}
         />
