@@ -1,0 +1,445 @@
+{
+  "units": [
+    {
+      "id": 1,
+      "title": "Unit 1: The Relational Model",
+      "description": "Relations, schemas, keys, integrity constraints, and null values.",
+      "icon": "🎯",
+      "color": "bg-green-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "Which of the following best describes a *candidate key*?",
+          "options": [
+            "Any set of attributes that uniquely identifies every tuple in a relation",
+            "A minimal set of attributes that uniquely identifies every tuple",
+            "The single attribute designated to represent the primary identifier",
+            "Any attribute that appears as a foreign key in another relation"
+          ],
+          "correct": 1,
+          "explanation": "A superkey uniquely identifies tuples; a candidate key is a **minimal** superkey — removing any one attribute from it would break uniqueness."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "The entity integrity constraint requires that:",
+          "options": [
+            "All attribute values fall within their declared domain",
+            "Every non-null foreign key value matches a primary key in the referenced relation",
+            "No attribute of a primary key may hold a null value",
+            "No two tuples may share the same value for any single attribute"
+          ],
+          "correct": 2,
+          "explanation": "Entity integrity ensures every tuple is definitively and uniquely identifiable via its primary key."
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "Referential integrity is violated when:",
+          "options": [
+            "A primary key attribute contains a null value",
+            "A non-null foreign key value has no matching primary key value in the referenced relation",
+            "Two tuples have the same non-key attribute value",
+            "An attribute value falls outside its declared domain"
+          ],
+          "correct": 1,
+          "explanation": "Correct answer: B"
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "A primary key attribute may contain NULL values.",
+          "correct": false,
+          "explanation": "Entity integrity requires every primary key attribute to be non-null."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "A ___ key in one relation references a primary key in another relation.",
+          "correct": "foreign",
+          "hint": "It links rows across relations",
+          "explanation": "A foreign key stores values that reference a key in another relation."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Unit 2: SQL: Defining and Modifying Data",
+      "description": "SQL DDL and DML: creating, changing, inserting, updating, and deleting data.",
+      "icon": "🏗️",
+      "color": "bg-blue-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "Which SQL statement removes both the stored data *and* the schema of a table?",
+          "options": [
+            "`DELETE FROM Student;`",
+            "`TRUNCATE TABLE Student;`",
+            "`DROP TABLE Student;`",
+            "`ALTER TABLE Student REMOVE ALL;`"
+          ],
+          "correct": 2,
+          "explanation": "`DELETE FROM` removes rows but leaves the schema intact. `DROP TABLE` removes both the schema and all data."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "The `ON DELETE CASCADE` referential action means:",
+          "options": [
+            "Deleting a referenced tuple sets the foreign key column to null",
+            "Deleting a referenced tuple raises an error and is blocked",
+            "Deleting a referenced tuple automatically deletes all referencing tuples",
+            "Deleting a referenced tuple replaces the foreign key with a default value"
+          ],
+          "correct": 2,
+          "explanation": "Correct answer: C"
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "Which constraint ensures that a *non-primary-key* column accepts only distinct (non-duplicate) values?",
+          "options": [
+            "`NOT NULL`",
+            "`CHECK`",
+            "`UNIQUE`",
+            "`DEFAULT`"
+          ],
+          "correct": 2,
+          "explanation": "Correct answer: C"
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "`DELETE FROM Student` removes rows but keeps the table schema.",
+          "correct": true,
+          "explanation": "`DELETE FROM` removes data. `DROP TABLE` removes both data and schema."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "The referential action `ON DELETE ___` automatically deletes referencing rows when the referenced row is deleted.",
+          "correct": "cascade",
+          "hint": "It propagates the delete operation",
+          "explanation": "`ON DELETE CASCADE` propagates deletion from the referenced row to dependent rows."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Unit 3: SQL: Querying Data",
+      "description": "SQL querying with filtering, grouping, joins, subqueries, and null handling.",
+      "icon": "💻",
+      "color": "bg-purple-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "Which clause is used to filter the *results of groups* in a `GROUP BY` query?",
+          "options": [
+            "`WHERE`",
+            "`HAVING`",
+            "`FILTER`",
+            "`ON`"
+          ],
+          "correct": 1,
+          "explanation": "`WHERE` filters individual rows before grouping; `HAVING` filters groups after aggregation and can reference aggregate functions."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "What does `SELECT DISTINCT CourseNo FROM Enrol` return?",
+          "options": [
+            "The first occurrence of each CourseNo value in storage order",
+            "All CourseNo values sorted alphabetically",
+            "Each unique CourseNo value, with duplicate occurrences removed",
+            "Only CourseNo values that appear more than once"
+          ],
+          "correct": 2,
+          "explanation": "Correct answer: C"
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "What is the difference between `COUNT(*)` and `COUNT(Grade)` when applied to a table with 10 rows, 3 of which have a null Grade?",
+          "options": [
+            "Both return 10",
+            "`COUNT(*)` returns 10; `COUNT(Grade)` returns 7",
+            "Both return 7",
+            "`COUNT(*)` returns 7; `COUNT(Grade)` returns 10"
+          ],
+          "correct": 1,
+          "explanation": "`COUNT(*)` counts every row regardless of nulls. `COUNT(attr)` counts only rows where that attribute is non-null."
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "`WHERE` filters individual rows before grouping, while `HAVING` filters groups after aggregation.",
+          "correct": true,
+          "explanation": "`WHERE` is applied before grouping; `HAVING` is applied after groups and aggregates are formed."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "The SQL clause used to filter grouped query results is ___.",
+          "correct": "having",
+          "hint": "It can reference aggregate functions",
+          "explanation": "`HAVING` filters groups after `GROUP BY` and can use aggregate expressions such as `AVG(...)`."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Unit 4: Conceptual Database Design (ER/EER)",
+      "description": "Conceptual database design using ER and EER modelling.",
+      "icon": "🗺️",
+      "color": "bg-orange-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "A *weak entity type* is best defined as:",
+          "options": [
+            "An entity with no attributes of its own",
+            "An entity that cannot be uniquely identified by its own attributes alone and depends on an owner entity",
+            "An entity that participates only partially in a relationship",
+            "An entity involved in a recursive (self-referencing) relationship"
+          ],
+          "correct": 1,
+          "explanation": "A weak entity has a partial key but needs the primary key of its owner to form a complete identifier."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "In an ER diagram, **double lines** connecting an entity type to a relationship type indicate:",
+          "options": [
+            "A M:N cardinality ratio",
+            "A derived attribute",
+            "Total participation — every entity instance must participate in the relationship",
+            "A recursive relationship"
+          ],
+          "correct": 2,
+          "explanation": "Correct answer: C"
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "Which cardinality ratio describes: \"each employee works for *at most one* department, and each department may have *many* employees\"?",
+          "options": [
+            "M:N",
+            "1:1",
+            "1:N (one department, many employees)",
+            "M:1 (many employees, one department)"
+          ],
+          "correct": 3,
+          "explanation": "Answer note: (equivalently C, depending on direction convention — the key constraint is many employees to one department)"
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "A weak entity can be uniquely identified using only its own attributes.",
+          "correct": false,
+          "explanation": "A weak entity depends on an owner entity; its identifier combines the owner key with its partial key."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "In ER modelling, double lines indicate ___ participation.",
+          "correct": "total",
+          "hint": "Every entity instance must participate",
+          "explanation": "Double lines indicate total participation in an ER relationship."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Unit 5: Functional Dependencies and Keys",
+      "description": "Functional dependencies, Armstrong's axioms, closures, candidate keys, and minimal covers.",
+      "icon": "🗝️",
+      "color": "bg-pink-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "A functional dependency X → Y is **trivial** if:",
+          "options": [
+            "X is a superkey of the relation",
+            "Y ⊆ X (Y is a subset of X)",
+            "X and Y are disjoint attribute sets",
+            "Y is a prime attribute"
+          ],
+          "correct": 1,
+          "explanation": "A trivial FD holds in every relation because Y is already contained within X — e.g., {A, B} → A is always satisfied."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "Given FDs A → B and B → C, which Armstrong's axiom derives A → C?",
+          "options": [
+            "Reflexivity",
+            "Augmentation",
+            "Transitivity",
+            "Union"
+          ],
+          "correct": 2,
+          "explanation": "Correct answer: C"
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "The *closure* X⁺ of a set of attributes X under a set of FDs F is:",
+          "options": [
+            "The set of all FDs logically implied by F",
+            "The set of all attributes that X functionally determines using F",
+            "The set of all superkeys that contain X",
+            "The minimal cover of F restricted to X"
+          ],
+          "correct": 1,
+          "explanation": "Correct answer: B"
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "A functional dependency X -> Y is trivial when Y is a subset of X.",
+          "correct": true,
+          "explanation": "Trivial dependencies always hold because the right-hand side is already included in the left-hand side."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "If X+ contains every attribute of relation R, then X is a ___.",
+          "correct": "superkey",
+          "hint": "It uniquely determines all attributes",
+          "explanation": "When the closure of X includes all attributes, X functionally determines the whole tuple, so X is a superkey."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Unit 6: Normalisation",
+      "description": "Normal forms, decomposition, lossless joins, and dependency preservation.",
+      "icon": "✨",
+      "color": "bg-indigo-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "A relation violates **2NF** if:",
+          "options": [
+            "It contains an attribute with a non-atomic (multi-valued) domain",
+            "A non-prime attribute is functionally dependent on only part of a composite candidate key",
+            "A non-prime attribute is transitively dependent on the primary key through another non-prime attribute",
+            "A determinant of a non-trivial FD is not a superkey"
+          ],
+          "correct": 1,
+          "explanation": "(Option A describes a 1NF violation; option C describes a 3NF violation; option D describes a BCNF violation.)"
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "**BCNF** requires that for every non-trivial FD X → A in R:",
+          "options": [
+            "Either A is a prime attribute, or X is a superkey",
+            "X is a superkey",
+            "X contains the primary key as a subset",
+            "A is not a prime attribute"
+          ],
+          "correct": 1,
+          "explanation": "3NF allows the \"A is a prime attribute\" escape clause; BCNF does not — the only permissible case is X being a superkey."
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "Which statement is true of **3NF** but **NOT** of BCNF?",
+          "options": [
+            "All partial dependencies on candidate keys are eliminated",
+            "A decomposition into this normal form always preserves all functional dependencies",
+            "Every determinant of any non-trivial FD is a superkey",
+            "A lossless-join decomposition into this form is always achievable"
+          ],
+          "correct": 1,
+          "explanation": "3NF synthesis guarantees both lossless join and dependency preservation. BCNF decomposition guarantees lossless join but not necessarily dependency preservation."
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "BCNF decomposition always preserves all functional dependencies.",
+          "correct": false,
+          "explanation": "BCNF decomposition guarantees lossless join, but it may lose dependency preservation."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "A lossless-join decomposition reconstructs the original relation without introducing ___ tuples.",
+          "correct": "spurious",
+          "hint": "Unwanted extra rows from a join",
+          "explanation": "Lossless join means the decomposed relations join back to exactly the original relation, with no spurious tuples."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Unit 7: Relational Algebra",
+      "description": "Relational algebra operators, equivalences, and SQL translation.",
+      "icon": "🧮",
+      "color": "bg-teal-500",
+      "questions": [
+        {
+          "id": 1,
+          "type": "multiple_choice",
+          "question": "The selection operation σ_φ(R) returns:",
+          "options": [
+            "A subset of the *attributes* of R satisfying condition φ",
+            "All tuples of R that satisfy condition φ, with the same schema as R",
+            "Each distinct value of the attribute named in φ",
+            "All combinations of tuples from R and another relation satisfying φ"
+          ],
+          "correct": 1,
+          "explanation": "Selection filters rows; the result has the same schema as the input relation."
+        },
+        {
+          "id": 2,
+          "type": "multiple_choice",
+          "question": "In set-based (formal) relational algebra, why does projection π always produce a relation without duplicate tuples?",
+          "options": [
+            "Projection automatically sorts the output by the projected attributes",
+            "Relations are defined as sets, so all RA results are sets — duplicates are eliminated by definition",
+            "Projection includes a built-in DISTINCT clause",
+            "Tuples with duplicate projected values are replaced by null"
+          ],
+          "correct": 1,
+          "explanation": "In formal RA, every expression returns a relation (a set of tuples). SQL uses bag semantics and requires explicit DISTINCT."
+        },
+        {
+          "id": 3,
+          "type": "multiple_choice",
+          "question": "If relation R has 4 tuples and relation S has 3 tuples and they share **no** attributes, the Cartesian product R × S has:",
+          "options": [
+            "7 tuples",
+            "At most 4 tuples",
+            "12 tuples",
+            "A number equal to the overlapping values between R and S"
+          ],
+          "correct": 2,
+          "explanation": "Cartesian product: |R × S| = |R| × |S| = 4 × 3 = 12."
+        },
+        {
+          "id": 4,
+          "type": "true_false",
+          "question": "Selection chooses rows, while projection chooses columns.",
+          "correct": true,
+          "explanation": "Selection (sigma) filters tuples; projection (pi) keeps selected attributes."
+        },
+        {
+          "id": 5,
+          "type": "fill_blank",
+          "question": "In formal relational algebra, projection eliminates duplicates because relations are ___.",
+          "correct": "sets",
+          "hint": "Not bags or lists",
+          "explanation": "Formal relational algebra uses set semantics, so duplicate tuples are removed by definition."
+        }
+      ]
+    }
+  ]
+}
