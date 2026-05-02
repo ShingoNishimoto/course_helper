@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const ABOUT_ITEMS = [
-  { icon: '🎯', title: 'Game-based learning', desc: 'Progress through 7 units covering the full COMP6240 syllabus — from the Relational Model and SQL to Normalisation and Relational Algebra.' },
+  { icon: '🎯', title: 'Game-based learning', desc: 'Progress through 7 units covering the full Relational Database syllabus — from the Relational Model and SQL to Normalisation and Relational Algebra.' },
   { icon: '💬', title: 'Instant feedback', desc: 'Every answer triggers immediate feedback. Wrong answers show a detailed explanation so every mistake becomes a learning moment.' },
   { icon: '🔥', title: 'Streak & combo system', desc: 'Answer 3 or more questions correctly in a row and an "ON FIRE!" celebration pops up on screen.' },
   { icon: '💖', title: 'Lives system', desc: 'Each session starts with 3 hearts. Every wrong answer costs one heart — lose all three and the session ends.' },
@@ -67,7 +67,7 @@ export default function HomeScreen({ units, progress, xp, streak, theme, themes,
         <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShibaMascot />
-            <span className="font-black text-white text-xl tracking-wide">COMP6240</span>
+            <span className="font-black text-white text-xl tracking-wide">Relational Database</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 bg-white/25 rounded-full px-3 py-1.5">
@@ -107,7 +107,7 @@ export default function HomeScreen({ units, progress, xp, streak, theme, themes,
           {showAbout && (
             <div className="border-t border-gray-100 px-4 py-4 flex flex-col gap-3 animate-slide-up">
               <p className="text-gray-500 text-sm leading-relaxed">
-                A quiz app to help you master <span className="font-bold" style={{ color: theme.accent }}>COMP6240</span> through engaging, game-like learning.
+                A quiz app to help you master <span className="font-bold" style={{ color: theme.accent }}>Relational Database</span> through engaging, game-like learning.
               </p>
               {ABOUT_ITEMS.map((item) => (
                 <div key={item.title} className="flex items-start gap-3">
@@ -285,7 +285,7 @@ export default function HomeScreen({ units, progress, xp, streak, theme, themes,
             >
               <div className="text-5xl mb-2">🎊🎉🎊</div>
               <h3 className="font-black text-2xl">Course Complete!</h3>
-              <p className="text-sm opacity-90 mt-1">You've mastered all COMP6240 units!</p>
+              <p className="text-sm opacity-90 mt-1">You've mastered all Relational Database units!</p>
             </div>
           )}
         </div>
