@@ -38,7 +38,7 @@ function Confetti() {
   )
 }
 
-export default function CompleteScreen({ unit, result, xpEarned, theme, onContinue, onRedo }) {
+export default function CompleteScreen({ unit, result, xpEarned, theme, onContinue, onRedo, onBackHome }) {
   const { score, total, failed } = result
   const percentage = Math.round((score / total) * 100)
   const [displayScore, setDisplayScore] = useState(0)
@@ -146,6 +146,14 @@ export default function CompleteScreen({ unit, result, xpEarned, theme, onContin
         >
           {failed ? 'TRY AGAIN' : 'PRACTICE AGAIN'}
         </button>
+        {failed && (
+          <button
+            onClick={onBackHome}
+            className="w-full bg-white hover:bg-gray-50 text-gray-500 font-black text-lg py-4 rounded-2xl border-2 border-gray-200 transition-all duration-150 active:scale-95 hover:shadow-md"
+          >
+            BACK TO HOME
+          </button>
+        )}
       </div>
     </div>
   )

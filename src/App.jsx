@@ -123,6 +123,11 @@ export default function App() {
     setScreen('quiz')
   }
 
+  const handleBackHome = () => {
+    setQuizResult(null)
+    setScreen('home')
+  }
+
   const xpEarned = quizResult ? quizResult.score * 10 : 0
 
   return (
@@ -164,6 +169,7 @@ export default function App() {
           theme={activeTheme}
           onContinue={handleContinue}
           onRedo={handleRedo}
+          onBackHome={handleBackHome}
         />
       )}
     </div>
